@@ -22,12 +22,17 @@ usernameInput.addEventListener("change", (event)=>{
         localStorage.setItem('username', usernameInput.value);
     }
     usernameErr.textContent = usernameInput.validationMessage;
-
 });
 
 emailInput.addEventListener("change", (event)=>{
-    console.log(event.target.value);
-    localStorage.setItem('email', emailInput.value);
+    const email = event.target.value
+     if (email === ''){
+        emailInput.setCustomValidity("The email field can't be empty, enter an email with a min length of 8");
+    }else {
+        emailInput.setCustomValidity('');
+        localStorage.setItem('email', emailInput.value);
+    }
+    emailErr.textContent = emailInput.validationMessage;
 });
 
 window.addEventListener("DOMContentLoaded", () => {
