@@ -35,6 +35,44 @@ emailInput.addEventListener("change", (event)=>{
     emailErr.textContent = emailInput.validationMessage;
 });
 
+function atLeastOneUpper(str){
+    for (let letter of str) {
+        if ( letter === letter.toUpperCase()) {
+            return true;    
+        }
+    }
+    return false;
+}
+
+function atLeastOneDigit(str){
+    for (let letter of str) {
+         const digit = parseInt(letter);
+         console.log(letter);
+         console.log(digit);
+         if (digit === NaN){
+            continue;
+         } else if (letter === '\0') {
+            continue;
+         }
+         return true
+    }
+    return false;
+}
+
+pswdInput.addEventListener("change", (event) =>{
+    const pswd = event.target.value;
+    if (pswd.length < 8) {
+        console.log("Password is less than 8 chars");
+    }
+    if (!atLeastOneUpper(pswd)) {
+        console.log("Password is missing a capital letter");
+    }
+    if (!atLeastOneDigit(pswd)) {
+         console.log("Password is missing a number");
+    }
+});
+
+
 window.addEventListener("DOMContentLoaded", () => {
     const savedUsername = localStorage.getItem('username');
     const savedEmail = localStorage.getItem('email');
