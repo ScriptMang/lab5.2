@@ -13,9 +13,9 @@ const confirmPswdErr = document.getElementById('confirmPasswordError');
 
 
 usernameInput.addEventListener("change", (event)=>{
-    const username = event.target.value;
-    console.log(username);
-    if (username === ''){
+    const username = event.target;
+    console.log(username.value);
+    if (username.validity.valueMissing){
         usernameInput.setCustomValidity("Username field can't be empty, provide a username");
     }else {
         usernameInput.setCustomValidity('');
