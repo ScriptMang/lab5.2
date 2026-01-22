@@ -61,7 +61,7 @@ function atLeastOneDigit(str){
 
 pswdInput.addEventListener("change", (event) =>{
     const pswd = event.target.value;
-    if (pswd.length < 8) {
+    if (pswdInput.validity.tooShort) {
         console.log("Password is less than 8 chars");
     }
     if (!atLeastOneUpper(pswd)) {
