@@ -25,8 +25,8 @@ usernameInput.addEventListener("change", (event)=>{
 });
 
 emailInput.addEventListener("change", (event)=>{
-    const email = event.target.value
-     if (email === ''){
+    const email = event.target;
+     if (email.validity.valueMissing){
         emailInput.setCustomValidity("The email field can't be empty, enter an email with a min length of 8");
     }else {
         emailInput.setCustomValidity('');
