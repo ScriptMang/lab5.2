@@ -14,7 +14,7 @@ const confirmPswdErr = document.getElementById('confirmPasswordError');
 
 usernameInput.addEventListener("change", (event)=>{
     const username = event.target;
-    console.log(username.value);
+    // console.log(username.value);
     if (username.validity.valueMissing){
         usernameInput.setCustomValidity("Username field can't be empty, provide a username");
     }else {
@@ -37,12 +37,12 @@ emailInput.addEventListener("change", (event)=>{
 
 function atLeastOneUpper(str){
     for (let letter of str) {
-        console.log(`at least one upper letter: ${letter}`);
+        // console.log(`at least one upper letter: ${letter}`);
         if (!isNaN(parseInt(letter))) {
             continue;
         }
         if ( letter === letter.toUpperCase()) {
-            console.log(`Found a match uppercase letter ${letter}`);
+            // console.log(`Found a match uppercase letter ${letter}`);
             return true;    
         }
     }
@@ -52,9 +52,9 @@ function atLeastOneUpper(str){
 function atLeastOneDigit(str){
     for (let letter of str) {
         const digit = parseInt(letter);
-        console.log(`at least one digit: ${digit}`);
+        // console.log(`at least one digit: ${digit}`);
         if (!isNaN(digit)){
-             console.log(`This digit ${letter} is  a number`);
+            //  console.log(`This digit ${letter} is  a number`);
             return true
         } 
     }
