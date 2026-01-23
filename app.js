@@ -111,6 +111,11 @@ function isvalidErrMsgEmpty(inputField) {
     return inputField.validationMessage === '';
 }
 
+function clearInputFieldsAfterSubmit(inputFields) {
+    for (let inputField of inputFields) {
+        inputField.value = "";
+    }
+}
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     let inputFields = [usernameInput, emailInput, pswdInput, confirmPswdInput]
@@ -123,5 +128,6 @@ form.addEventListener('submit', (event) => {
 
     if (!atLeastOneValidErrMsg) {
         alert("Form sucessfully submitted");
+        clearInputFieldsAfterSubmit(inputFields);
     }
 });
