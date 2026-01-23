@@ -61,15 +61,16 @@ function atLeastOneDigit(str){
 
 pswdInput.addEventListener("change", (event) =>{
     const pswd = event.target.value;
-    if (pswdInput.validity.tooShort) {
-        console.log("Password is less than 8 chars");
+    
+     if (pswdInput.validity.valueMissing ||
+         pswdInput.validity.tooShort || 
+         !atLeastOneUpper(pswd) || !atLeastOneDigit(pswd)) {
+        pswdInput.setCustomValidity('Password must be at least 8 characters long,  a lowercase letter, and a number.');
+    }  else {
+        pswdInput.setCustomValidity('');
     }
-    if (!atLeastOneUpper(pswd)) {
-        console.log("Password is missing a capital letter");
-    }
-    if (!atLeastOneDigit(pswd)) {
-         console.log("Password is missing a number");
-    }
+
+    pswdErr.textContent = pswdInput.validationMessage;
 });
 
 
