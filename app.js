@@ -67,7 +67,7 @@ pswdInput.addEventListener("change", (event) => {
     if (newPswd.length === 1) {
        newPswd.splice(0,1);
     }
-    
+
     const pswd = event.target.value;
     const isThereAtLeastUpperCaseLetter = atLeastOneUpper(pswd);
     const isThereAtLeastDigit = atLeastOneDigit(pswd); 
@@ -106,6 +106,22 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+
+function isvalidErrMsgEmpty(inputField) {
+    return inputField.validationMessage === '';
+}
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    let inputFields = [usernameInput, emailInput, pswdInput, confirmPswdInput]
+    let atLeastOneValidErrMsg = false;
+    for(let inputField of inputFields) {
+        if (!isvalidErrMsgEmpty(inputField)) {
+            atLeastOneValidErrMsg = true;
+        }
+    }
+
+    if (!atLeastOneValidErrMsg) {
+        alert("Form sucessfully submitted");
+    }
 });
