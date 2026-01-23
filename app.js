@@ -11,13 +11,24 @@ const emailErr = document.getElementById('emailError');
 const confirmPswdErr = document.getElementById('confirmPasswordError');
 
 
+function hasSymbols(str){
+    let symbolsFilter = "@$";
+    return str.includes(symbolsFilter[0]) || str.includes(symbolsFilter[1]);
+}
+
+function hasPunct(str) {
+    let punctFilter = " .!?";
+    return str.includes(punctFilter[0]) || str.includes(punctFilter[1]) || str.includes(punctFilter[2]) || str.includes(punctFilter[3]);
+}
 
 usernameInput.addEventListener("change", (event)=>{
     const username = event.target;
     // console.log(username.value);
     if (username.validity.valueMissing){
         usernameInput.setCustomValidity("Username field can't be empty, provide a username");
-    }else {
+    } else if (hasSymbols(username.value)) {
+        usernameInput.setCustomValidity("Username field can't contain special symbols like '@$'");
+    } else {
         usernameInput.setCustomValidity('');
         localStorage.setItem('username', usernameInput.value);
     }
@@ -28,6 +39,8 @@ emailInput.addEventListener("change", (event)=>{
     const email = event.target;
      if (email.validity.valueMissing){
         emailInput.setCustomValidity("The email field can't be empty, enter an email with a min length of 8");
+    } else if (hasPunct(email.value)) {
+         emailInput.setCustomValidity("The email field can't contain any punctuation like '(space).!?'");
     } else {
         emailInput.setCustomValidity('');
         localStorage.setItem('email', emailInput.value);
