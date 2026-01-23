@@ -28,7 +28,7 @@ emailInput.addEventListener("change", (event)=>{
     const email = event.target;
      if (email.validity.valueMissing){
         emailInput.setCustomValidity("The email field can't be empty, enter an email with a min length of 8");
-    }else {
+    } else {
         emailInput.setCustomValidity('');
         localStorage.setItem('email', emailInput.value);
     }
@@ -37,7 +37,12 @@ emailInput.addEventListener("change", (event)=>{
 
 function atLeastOneUpper(str){
     for (let letter of str) {
+        console.log(`at least one upper letter: ${letter}`);
+        if (!isNaN(parseInt(letter))) {
+            continue;
+        }
         if ( letter === letter.toUpperCase()) {
+            console.log(`Found a match uppercase letter ${letter}`);
             return true;    
         }
     }
@@ -46,32 +51,48 @@ function atLeastOneUpper(str){
 
 function atLeastOneDigit(str){
     for (let letter of str) {
-         const digit = parseInt(letter);
-         console.log(letter);
-         console.log(digit);
-         if (digit === NaN){
-            continue;
-         } else if (letter === '\0') {
-            continue;
-         }
-         return true
+        const digit = parseInt(letter);
+        console.log(`at least one digit: ${digit}`);
+        if (!isNaN(digit)){
+             console.log(`This digit ${letter} is  a number`);
+            return true
+        } 
     }
     return false;
 }
 
-pswdInput.addEventListener("change", (event) =>{
-    const pswd = event.target.value;
+const newPswd = [];
+pswdInput.addEventListener("change", (event) => {
+    // make sure the new pswd list is empty on re-entry
+    if (newPswd.length === 1) {
+       newPswd.splice(0,1);
+    }
     
-     if (pswdInput.validity.valueMissing ||
-         pswdInput.validity.tooShort || 
-         !atLeastOneUpper(pswd) || !atLeastOneDigit(pswd)) {
+    const pswd = event.target.value;
+    const isThereAtLeastUpperCaseLetter = atLeastOneUpper(pswd);
+    const isThereAtLeastDigit = atLeastOneDigit(pswd); 
+     if (pswdInput.validity.valueMissing || pswdInput.validity.tooShort  || !isThereAtLeastUpperCaseLetter || !isThereAtLeastDigit) {
         pswdInput.setCustomValidity('Password must be at least 8 characters long,  a lowercase letter, and a number.');
     }  else {
         pswdInput.setCustomValidity('');
     }
-
     pswdErr.textContent = pswdInput.validationMessage;
+     if (pswdInput.validationMessage === "") {
+        newPswd.push(pswd);
+    }
 });
+
+
+confirmPswdInput.addEventListener("change", (event)=>{
+    const confirmPswd = event.target;
+    if (confirmPswd.value !== newPswd[0]) {
+         confirmPswdInput.setCustomValidity('Passwords do not match, please retype.');
+         confirmPswdErr.textContent = confirmPswdInput.validationMessage;
+    } else {
+        confirmPswdInput.setCustomValidity('');
+    }
+});
+
 
 
 window.addEventListener("DOMContentLoaded", () => {
