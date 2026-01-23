@@ -115,6 +115,7 @@ function clearInputFieldsAfterSubmit(inputFields) {
     for (let inputField of inputFields) {
         inputField.value = "";
     }
+    localStorage.clear();
 }
 form.addEventListener('submit', (event) => {
     event.preventDefault();
